@@ -6,8 +6,7 @@ using Confluent.Kafka;
 var conf = new ConsumerConfig
 {
     BootstrapServers = "edge01",
-    GroupId = "cons-demo",
-    BrokerAddressFamily = BrokerAddressFamily.V6
+    GroupId = "cons-demo"
 };
 
 using (var c = new ConsumerBuilder<Ignore, string>(conf).Build())

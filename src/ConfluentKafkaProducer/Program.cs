@@ -9,7 +9,7 @@ namespace KafkaProducer
         public static async Task Main(string[] args)
         {
             var config = new ProducerConfig { 
-                BootstrapServers = "edge01",
+                BootstrapServers = "edge01"
                 //SaslUsername = "prod1",
                 //SaslPassword = "prod1-secret",
                 //SaslMechanism = SaslMechanism.ScramSha256,
