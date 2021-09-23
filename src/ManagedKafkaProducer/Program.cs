@@ -13,7 +13,7 @@ while (true)
 {
     var word = random.Next(1, 10).ToString();
     var now = DateTime.UtcNow;
-    cluster.Produce("test01", $"{now.ToString("u")}", $"{word}", now);
+    cluster.Produce("test01", Encoding.UTF8.GetBytes($"{now.ToString("u")}"), Encoding.UTF8.GetBytes($"{word}"));
     Console.WriteLine(word);
     await Task.Delay(100);
 }
