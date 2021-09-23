@@ -27,27 +27,27 @@ namespace KafkaWordCountDotNetSpark
                 .Option(subscribeType, topics)
                 // .Option("includeTimestamp", true)
                 .Load()
-                .SelectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
+                .SelectExpr("CAST(CAST(key AS STRING) as Timestamp)", "CAST(value AS STRING)")
                 ;
 
-            string windowDuration = $"{5} seconds";
-
             DataFrame windowedCounts = rows
+                .WithWatermark("key", "5 seconds")
                 .GroupBy(
-                    Window(rows["key"], "10 seconds"),
+                    Window(rows["key"], "30 seconds"),
                     rows["value"]
                 )
                 .Count()
-                .OrderBy("window.start")
+                .OrderBy(Col("window.end").Desc())
             ;
 
             StreamingQuery query = 
                 windowedCounts
                 .WriteStream()
                 .OutputMode("complete")
+                .Option("truncate", "false")
                 // .OutputMode("append") // Filesink only support Append mode.
                 // .Format("csv") // supports these formats : csv, json, orc, parquet
-                .Trigger(Trigger.ProcessingTime("15 seconds"))
+                .Trigger(Trigger.ProcessingTime("30 seconds"))
                 // .Option("checkpointLocation", "checkpoint")
                 // .Option("path", "output/filesink_output")
                 // .Option("header", true)
