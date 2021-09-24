@@ -31,7 +31,7 @@ namespace KafkaWordCountDotNetSpark
                 ;
 
             DataFrame watermarkingDF = rows
-            // .WithWatermark("timestamp", "1 minute")
+                .WithWatermark("timestamp", "1 minute")
             ;
 
             DataFrame windowedCounts = watermarkingDF
