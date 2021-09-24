@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31710.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfluentKafkaProducer", "ConfluentKafkaProducer\ConfluentKafkaProducer.csproj", "{E8474987-2B91-47C1-8A0F-3054FC62F1BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfluentKafkaProducer", "ConfluentKafkaProducer\ConfluentKafkaProducer.csproj", "{E8474987-2B91-47C1-8A0F-3054FC62F1BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfluentKafkaConsumer", "ConfluentKafkaConsumer\ConfluentKafkaConsumer.csproj", "{61A0458E-AE11-47DB-94F9-1ABF2386DD85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfluentKafkaConsumer", "ConfluentKafkaConsumer\ConfluentKafkaConsumer.csproj", "{61A0458E-AE11-47DB-94F9-1ABF2386DD85}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManagedKafkaConsumer", "ManagedKafkaConsumer\ManagedKafkaConsumer.csproj", "{A379B6C5-9849-4B52-8263-086EE7EBDB31}"
 EndProject
@@ -14,6 +14,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Managed", "Managed", "{C37BA73C-20C8-4942-8F8B-1B388B98E8E2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManagedKafkaProducer", "ManagedKafkaProducer\ManagedKafkaProducer.csproj", "{DBA765AD-9B03-413A-A182-0AC9511DB3E4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaWordCountDotNetSpark", "KafkaWordCountDotNetSpark\KafkaWordCountDotNetSpark.csproj", "{91709CC4-AFBB-4036-BF74-3113AAC64C24}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Spark", "Spark", "{A447EFE8-0378-4CAA-B1DC-3923F8C08A45}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordCountDotNetSpark", "WordCountDotNetSpark\WordCountDotNetSpark.csproj", "{91BC94BD-A224-4EE0-AB4F-F9C7A1FB8DCE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GW", "GW", "{B43BC49C-EF5B-4334-A967-4C94664C56FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FolderGWIoTHub", "FolderGWIoTHub\FolderGWIoTHub.csproj", "{5C0388AF-F3EC-4AD6-ACD7-555650CBE9B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +47,18 @@ Global
 		{DBA765AD-9B03-413A-A182-0AC9511DB3E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBA765AD-9B03-413A-A182-0AC9511DB3E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBA765AD-9B03-413A-A182-0AC9511DB3E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91709CC4-AFBB-4036-BF74-3113AAC64C24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91709CC4-AFBB-4036-BF74-3113AAC64C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91709CC4-AFBB-4036-BF74-3113AAC64C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91709CC4-AFBB-4036-BF74-3113AAC64C24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91BC94BD-A224-4EE0-AB4F-F9C7A1FB8DCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91BC94BD-A224-4EE0-AB4F-F9C7A1FB8DCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91BC94BD-A224-4EE0-AB4F-F9C7A1FB8DCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91BC94BD-A224-4EE0-AB4F-F9C7A1FB8DCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C0388AF-F3EC-4AD6-ACD7-555650CBE9B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C0388AF-F3EC-4AD6-ACD7-555650CBE9B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C0388AF-F3EC-4AD6-ACD7-555650CBE9B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C0388AF-F3EC-4AD6-ACD7-555650CBE9B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +68,9 @@ Global
 		{61A0458E-AE11-47DB-94F9-1ABF2386DD85} = {56358736-E69B-4203-A672-AAD0659291EA}
 		{A379B6C5-9849-4B52-8263-086EE7EBDB31} = {C37BA73C-20C8-4942-8F8B-1B388B98E8E2}
 		{DBA765AD-9B03-413A-A182-0AC9511DB3E4} = {C37BA73C-20C8-4942-8F8B-1B388B98E8E2}
+		{91709CC4-AFBB-4036-BF74-3113AAC64C24} = {A447EFE8-0378-4CAA-B1DC-3923F8C08A45}
+		{91BC94BD-A224-4EE0-AB4F-F9C7A1FB8DCE} = {A447EFE8-0378-4CAA-B1DC-3923F8C08A45}
+		{5C0388AF-F3EC-4AD6-ACD7-555650CBE9B0} = {B43BC49C-EF5B-4334-A967-4C94664C56FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {602DD4DA-8C7B-4633-AD0C-7F509733FDEE}

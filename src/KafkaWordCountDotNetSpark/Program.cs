@@ -10,7 +10,7 @@ namespace KafkaWordCountDotNetSpark
         static void Main(string[] args)
         {
             string bootstrapServers = "edge01.local:9092";
-            string subscribeType = "subscribe"  ;
+            string subscribeType = "subscribe";
             string topics = "test01";
 
             SparkSession spark = SparkSession
@@ -30,8 +30,11 @@ namespace KafkaWordCountDotNetSpark
                 .SelectExpr("timestamp", "CAST(value AS STRING)")
                 ;
 
-            DataFrame windowedCounts = rows
-                .WithWatermark("timestamp", "30 seconds")
+            DataFrame watermarkingDF = rows
+            // .WithWatermark("timestamp", "1 minute")
+            ;
+
+            DataFrame windowedCounts = watermarkingDF
                 .GroupBy(
                     rows["value"],
                     Window(rows["timestamp"], "30 seconds")
@@ -40,20 +43,21 @@ namespace KafkaWordCountDotNetSpark
                 .OrderBy(Col("window.end").Desc())
             ;
 
-            StreamingQuery query = 
-                windowedCounts
+            StreamingQuery query =
+                rows
                 .WriteStream()
-                // .Format("console")
-                .Format("json")
+                //.Format("console")
+                .Format("csv")
+                //.OutputMode("complete")
                 .OutputMode("append")
                 .Option("path", "/home/pi/data")
                 .Trigger(Trigger.ProcessingTime("30 seconds"))
                 .Option("checkpointLocation", "/home/pi/data/checkpoint")
                 // .Option("truncate", "false")
-                // .Option("header", true)
+                // // .Option("header", true)
                 .Start();
 
-            // query.AwaitTermination();
+            query.AwaitTermination();
         }
     }
 }
