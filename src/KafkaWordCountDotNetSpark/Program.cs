@@ -10,7 +10,7 @@ namespace KafkaWordCountDotNetSpark
         static void Main(string[] args)
         {
             string bootstrapServers = "edge01.local:9092";
-            string subscribeType = "subscribe"  ;
+            string subscribeType = "subscribe";
             string topics = "test01";
 
             SparkSession spark = SparkSession
@@ -43,14 +43,28 @@ namespace KafkaWordCountDotNetSpark
                 .OrderBy(Col("window.end").Desc())
             ;
 
+<<<<<<< HEAD
             StreamingQuery query = 
                 rows
                 .WriteStream()
                 .Format("csv")
+=======
+            StreamingQuery query =
+                rows
+                .WriteStream()
+                //.Format("console")
+                .Format("csv")
+                //.OutputMode("complete")
+>>>>>>> e24b73f887fea0a4a5307f6e013b8f11b4f31fc8
                 .OutputMode("append")
                 .Option("path", "/home/pi/data")
                 .Trigger(Trigger.ProcessingTime("30 seconds"))
                 .Option("checkpointLocation", "/home/pi/data/checkpoint")
+<<<<<<< HEAD
+=======
+                // .Option("truncate", "false")
+                // // .Option("header", true)
+>>>>>>> e24b73f887fea0a4a5307f6e013b8f11b4f31fc8
                 .Start();
 
             query.AwaitTermination();
