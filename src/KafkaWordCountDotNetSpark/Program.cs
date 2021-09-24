@@ -25,16 +25,16 @@ namespace KafkaWordCountDotNetSpark
                 .Format("kafka")
                 .Option("kafka.bootstrap.servers", bootstrapServers)
                 .Option(subscribeType, topics)
-                // .Option("includeTimestamp", true)
+                .Option("includeTimestamp", true)
                 .Load()
-                .SelectExpr("CAST(CAST(key AS STRING) as Timestamp)", "CAST(value AS STRING)")
+                .SelectExpr("timestamp", "CAST(value AS STRING)")
                 ;
 
             DataFrame windowedCounts = rows
-                .WithWatermark("key", "5 seconds")
+                .WithWatermark("timestamp", "30 seconds")
                 .GroupBy(
-                    Window(rows["key"], "30 seconds"),
-                    rows["value"]
+                    rows["value"],
+                    Window(rows["timestamp"], "30 seconds")
                 )
                 .Count()
                 .OrderBy(Col("window.end").Desc())
@@ -43,18 +43,17 @@ namespace KafkaWordCountDotNetSpark
             StreamingQuery query = 
                 windowedCounts
                 .WriteStream()
-                .OutputMode("complete")
-                .Option("truncate", "false")
-                // .OutputMode("append") // Filesink only support Append mode.
-                // .Format("csv") // supports these formats : csv, json, orc, parquet
+                // .Format("console")
+                .Format("json")
+                .OutputMode("append")
+                .Option("path", "/home/pi/data")
                 .Trigger(Trigger.ProcessingTime("30 seconds"))
-                // .Option("checkpointLocation", "checkpoint")
-                // .Option("path", "output/filesink_output")
+                .Option("checkpointLocation", "/home/pi/data/checkpoint")
+                // .Option("truncate", "false")
                 // .Option("header", true)
-                .Format("console")
                 .Start();
 
-            query.AwaitTermination();
+            // query.AwaitTermination();
         }
     }
 }
