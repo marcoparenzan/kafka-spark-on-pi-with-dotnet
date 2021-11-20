@@ -1,45 +1,11 @@
-﻿using System;
+﻿using Kafka.Public;
+using System;
+using System.Text;
 
-Console.WriteLine("");
-//using System;
-//using System.Threading;
-//using System.Threading.Tasks;
-//using Confluent.Kafka;
+var cluster = new ClusterClient(new Configuration { Seeds = "edge01.local:9092" }, new Kafka.Public.Loggers.ConsoleLogger());
 
-//var conf = new ConsumerConfig
-//{
-//    BootstrapServers = "edge01",
-//    GroupId = "cons-demo"
-//};
+cluster.MessageReceived += kafkaRecord => { Console.WriteLine($"{Encoding.UTF8.GetString((byte[])kafkaRecord.Value)}"); };
+// OR (for consumer group usage)
+cluster.Subscribe("some group", new[] { "test01" }, new ConsumerGroupConfiguration { AutoCommitEveryMs = 5000 });
 
-//using (var c = new ConsumerBuilder<Ignore, string>(conf).Build())
-//{
-//    c.Subscribe("test01");
-
-//    CancellationTokenSource cts = new CancellationTokenSource();
-//    Console.CancelKeyPress += (_, e) => {
-//        e.Cancel = true; // prevent the process from terminating.
-//        cts.Cancel();
-//    };
-
-//    try
-//    {
-//        while (true)
-//        {
-//            try
-//            {
-//                var cr = c.Consume();
-//                Console.WriteLine($"Consumed message '{cr.Value}' at: '{cr.TopicPartitionOffset}'.");
-//            }
-//            catch (ConsumeException e)
-//            {
-//                Console.WriteLine($"Error occured: {e.Error.Reason}");
-//            }
-//        }
-//    }
-//    catch (OperationCanceledException)
-//    {
-//        // Ensure the consumer leaves the group cleanly and final offsets are committed.
-//        c.Close();
-//    }
-//}
+Console.ReadLine();

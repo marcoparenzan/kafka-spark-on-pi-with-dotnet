@@ -5,7 +5,7 @@ using Confluent.Kafka;
 
 var conf = new ConsumerConfig
 {
-    BootstrapServers = "edge01.local",
+    BootstrapServers = "edge01",
     GroupId = "cons-demo"
 };
 

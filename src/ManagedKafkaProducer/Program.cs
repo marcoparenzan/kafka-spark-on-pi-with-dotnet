@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 var logger = new Kafka.Public.Loggers.ConsoleLogger();
 
-var cluster = new ClusterClient(new Configuration { Seeds = "edge01:9092" }, logger);
+var cluster = new ClusterClient(new Configuration { Seeds = "edge01.local:9092" }, logger);
 
 var random = new Random();
 
